@@ -10,7 +10,8 @@ def formatting_elem(elem: dict, indent='') -> str:
         return f"{indent}- {elem['key']}: {elem['old']}\n"\
                f"{indent}+ {elem['key']}: {elem['new']}\n"
     else:
-        return f"{indent}{formatting_action(elem['action'])} {elem['key']}: {elem['value']}\n"
+        return f"{indent}{formatting_action(elem['action'])} "\
+               f"{elem['key']}: {elem['value']}\n"
 
 
 def formatting_action(action: str) -> str:
