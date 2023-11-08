@@ -1,6 +1,7 @@
 from gendiff.parse_files import open_file
 from gendiff import generate_diff
 
+
 def test_parse_files():
     first_file = 'tests/fixtures/file1.json'
     second_file = 'tests/fixtures/file2.json'
