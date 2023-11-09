@@ -5,7 +5,7 @@ from gendiff.formats.stylish import stylish
 def test_parse_json_files():
     first_file = 'tests/fixtures/file1.json'
     second_file = 'tests/fixtures/file2.json'
-    diff_list = generate_diff(first_file, second_file)
+    diff_list = generate_diff(first_file, second_file).lower()
     correct_output = '{\n'\
                      '  - follow: false\n'\
                      '    host: hexlet.io\n'\
@@ -22,8 +22,7 @@ def test_parse_yml_files():
     second_file = 'tests/fixtures/file2.yaml'
     correct_file = open('tests/fixtures/correct_yml.txt').readlines()
     correct_output = ''.join(correct_file)
-    print(generate_diff(first_file, second_file, output=stylish))
-    diff_list = generate_diff(first_file, second_file)
+    diff_list = generate_diff(first_file, second_file).lower()
     assert correct_output == diff_list
 
 
