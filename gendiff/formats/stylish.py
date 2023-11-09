@@ -7,11 +7,11 @@ def stylish(diff_list: list, indent='') -> str:
 
 def formatting_elem(elem: dict, indent='') -> str:
     if elem['action'] == 'changed':
-        return f"{indent}- {elem['key']}: {elem['old']}\n"\
-               f"{indent}+ {elem['key']}: {elem['new']}\n"
+        return f"{indent}- {elem['key']}: {formatting_value(elem['old'])}\n"\
+               f"{indent}+ {elem['key']}: {formatting_value(elem['new'])}\n"
     else:
         return f"{indent}{formatting_action(elem['action'])} "\
-               f"{elem['key']}: {elem['value']}\n"
+               f"{elem['key']}: {formatting_value(elem['value'])}\n"
 
 
 def formatting_action(action: str) -> str:
@@ -21,3 +21,10 @@ def formatting_action(action: str) -> str:
         return '-'
     else:
         return '+'
+
+
+def formatting_value(value):
+    if isinstance(value, bool):
+        return str(value).lower()
+    else:
+        return value
