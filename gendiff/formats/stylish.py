@@ -6,6 +6,7 @@ def stylish(diff_list: list, indent='') -> str:
 
 
 def formatting_elem(elem: dict, indent='') -> str:
+
     if elem['action'] == 'changed':
         return f"{indent}- {elem['key']}: {formatting_value(elem['old'])}\n"\
                f"{indent}+ {elem['key']}: {formatting_value(elem['new'])}\n"
@@ -24,7 +25,8 @@ def formatting_action(action: str) -> str:
 
 
 def formatting_value(value):
+    print(value)
+    print(type(value))
     if isinstance(value, bool):
-        return str(value).lower()
-    else:
-        return value
+        return 'true' if value else 'false'
+    return value

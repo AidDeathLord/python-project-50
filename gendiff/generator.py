@@ -32,6 +32,7 @@ def generate_diff_list(first_dict: dict, second_dict: dict) -> list:
                 'action': 'added',
                 'value': second_dict[key]
             })
+    print(result)
     return result
 
 

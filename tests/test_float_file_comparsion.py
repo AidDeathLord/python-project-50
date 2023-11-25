@@ -1,29 +1,28 @@
 from gendiff import generate_diff
 from gendiff.formats.stylish import stylish
+import pytest
+import os
 
 
-def test_parse_json_files():
-    first_file = 'tests/fixtures/file1.json'
-    second_file = 'tests/fixtures/file2.json'
-    diff_list = generate_diff(first_file, second_file).lower()
-    correct_output = '{\n'\
-                     '  - follow: false\n'\
-                     '    host: hexlet.io\n'\
-                     '  - proxy: 123.234.53.22\n'\
-                     '  - timeout: 50\n'\
-                     '  + timeout: 20\n'\
-                     '  + verbose: true\n'\
-                     '}'
-    assert correct_output == diff_list
+def get_path(file):
+    return os.path.join('tests', 'fixtures', file)
 
 
-def test_parse_yml_files():
-    first_file = 'tests/fixtures/file1.yml'
-    second_file = 'tests/fixtures/file2.yaml'
-    correct_file = open('tests/fixtures/correct_yml.txt').readlines()
-    correct_output = ''.join(correct_file)
-    diff_list = generate_diff(first_file, second_file).lower()
-    assert correct_output == diff_list
-
-
-test_parse_yml_files()
+@pytest.mark.parametrize(
+    "test_input1,test_input2, output,  expected",
+    [
+        pytest.param(
+            'file1.yml',
+            'file2.yaml',
+            'stylish',
+            'correct_yml.txt',
+        )
+    ],
+)
+def test_generate_diff(test_input1, test_input2, output, expected):
+    expected_path = get_path(expected)
+    with open(expected_path, 'r') as file:
+        result_data = file.read()
+    test_path1 = get_path(test_input1)
+    test_path2 = get_path(test_input2)
+    assert generate_diff(test_path1, test_path2, stylish) == result_data
