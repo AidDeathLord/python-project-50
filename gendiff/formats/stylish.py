@@ -1,20 +1,19 @@
 def stylish(diff_list: list, indent='') -> str:
     result = '{\n'
     for elem in diff_list:
-        if elem['action'] == 'nested':
-            result = result + add_nested_elem(elem, indent + '  ')
-        elif elem['action'] == 'changed':
-            result = result + f"{indent + '  '}- {elem['key']}: {formatting_value(elem['old'], indent)}\n"
-            result = result + f"{indent + '  '}+ {elem['key']}: {formatting_value(elem['new'], indent)}\n"
-        else:
-            result = result + (f"{indent + '  '}{formatting_action(elem['action'])}"
-                               f"{elem['key']}: {formatting_value(elem['value'], indent)}\n")
-    return result + f'{indent}' + '}'
+        result = result + add_formatted_elem(elem, indent + '  ')
+    return result + f'{indent}' + '}\n'
 
 
-def add_nested_elem(elem, indent):
-    formatted_elem = f"{indent}  {elem['key']}: {stylish(elem.get('value'), indent + '  ')}\n"
-    return formatted_elem
+def add_formatted_elem(elem, indent):
+    if elem['action'] == 'nested':
+        return f"{indent + '  '}{elem['key']}: {stylish(elem.get('value'), indent + '  ')}"
+    elif elem['action'] == 'changed':
+        return (f"{indent}- {elem['key']}: {formatting_value(elem['old'], indent)}\n"
+                f"{indent}+ {elem['key']}: {formatting_value(elem['new'], indent)}\n")
+    else:
+        return (f"{indent}{formatting_action(elem['action'])}"
+                f"{elem['key']}: {formatting_value(elem['value'], indent)}\n")
 
 
 def formatting_action(action: str) -> str:
@@ -42,8 +41,7 @@ def formatting_dict_value(item, indent):
     result = '{\n'
     for keys, values in item.items():
         if isinstance(values, dict):
-            result = result + f'{indent}      {keys}: ' + formatting_dict_value(values, indent + '    ') + '\n'
+            result = result + f'{indent}    {keys}: ' + formatting_dict_value(values, indent + '    ') + '\n'
         else:
-            print(item)
-            result = result + f'{indent}      {keys}: {values}\n'
-    return result + f'{indent}' + '  }'
+            result = result + f'{indent}    {keys}: {values}\n'
+    return result + f'{indent}' + '}'
