@@ -28,6 +28,12 @@ def get_path(file):
             'nested_file_2.json',
             'stylish',
             'correct_nested_file.txt'
+        ),
+        pytest.param(
+            'nested_file_1.yml',
+            'nested_file_2.yml',
+            'stylish',
+            'correct_nested_file.txt'
         )
     ],
 )
