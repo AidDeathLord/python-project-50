@@ -2,41 +2,41 @@ from gendiff.formats.stylish import stylish
 from gendiff.parse_files import open_file
 
 
-def generate_diff_list(first_dict: dict, second_dict: dict) -> list:
+def generate_diff_list(dict_1: dict, dict_2: dict) -> list:
     result = []
-    keys = first_dict.keys() | second_dict.keys()
+    keys = dict_1.keys() | dict_2.keys()
     for key in sorted(keys):
-        if key not in first_dict.keys():
+        if key not in dict_1.keys():
             result.append({
                 'key': key,
                 'action': 'added',
-                'value': second_dict[key]
+                'value': dict_2[key]
             })
-        elif key not in second_dict.keys():
+        elif key not in dict_2.keys():
             result.append({
                 'key': key,
                 'action': 'deleted',
-                'value': first_dict[key]
+                'value': dict_1[key]
             })
-        elif isinstance(first_dict[key], dict) and isinstance(second_dict[key], dict):
+        elif isinstance(dict_1[key], dict) and isinstance(dict_2[key], dict):
             result.append({
                 'key': key,
                 'action': 'nested',
-                'value': generate_diff_list(first_dict.get(key),
-                                            second_dict.get(key))
+                'value': generate_diff_list(dict_1.get(key),
+                                            dict_2.get(key))
             })
-        elif first_dict[key] == second_dict[key]:
+        elif dict_1[key] == dict_2[key]:
             result.append({
                 'key': key,
                 'action': 'unchanged',
-                'value': first_dict[key]
+                'value': dict_1[key]
             })
         else:
             result.append({
                 'key': key,
                 'action': 'changed',
-                'old': first_dict[key],
-                'new': second_dict[key]
+                'old': dict_1[key],
+                'new': dict_2[key]
             })
     return result
 

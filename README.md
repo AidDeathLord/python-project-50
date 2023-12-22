@@ -9,5 +9,8 @@ Gendiff - is a utility for comparing changes in json and yaml files.
 The utility allows you to display the result in tree format, 
 string format and json format.
 
-### Comparison Flat File (JSON):
+### Comparison Flat Files (Stylish):
 [![asciicast](https://asciinema.org/a/uYlEj9Bly7pCVzrBKxld3tUOA.svg)](https://asciinema.org/a/uYlEj9Bly7pCVzrBKxld3tUOA)
+
+### Comparison Nested Files (Stylish):
+[![asciicast](https://asciinema.org/a/tKPPjTAQnT8lih1cYkioFIs6x.svg)](https://asciinema.org/a/tKPPjTAQnT8lih1cYkioFIs6x)
