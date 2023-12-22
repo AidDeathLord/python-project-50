@@ -18,8 +18,7 @@ def generate_diff_list(first_dict: dict, second_dict: dict) -> list:
                 'action': 'deleted',
                 'value': first_dict[key]
             })
-        elif (isinstance(first_dict.get(key), dict)
-              and isinstance(second_dict.get(key), dict)):
+        elif isinstance(first_dict[key], dict) and isinstance(second_dict[key], dict):
             result.append({
                 'key': key,
                 'action': 'nested',

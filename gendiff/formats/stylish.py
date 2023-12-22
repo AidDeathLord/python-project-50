@@ -44,8 +44,8 @@ def formatting_dict_value(item, indent):
     result = '{\n'
     for keys, values in item.items():
         if isinstance(values, dict):
-            result = (result + f'{indent}    {keys}: '
-                      + formatting_dict_value(values, indent + '    ') + '\n')
+            result += (f"{indent}    {keys}: "
+                       f"{formatting_dict_value(values, indent + '    ')}\n")
         else:
             result = result + f'{indent}    {keys}: {values}\n'
     return result + f'{indent}' + '}'
