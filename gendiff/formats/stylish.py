@@ -2,7 +2,7 @@ def stylish(diff_list: list, indent='') -> str:
     result = '{\n'
     for elem in diff_list:
         result = result + add_formatted_elem(elem, indent + '  ')
-    return result + f'{indent}' + '}'
+    return result + f'{indent}' + '}\n'
 
 
 def add_formatted_elem(elem, indent):
