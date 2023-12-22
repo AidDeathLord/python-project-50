@@ -43,6 +43,6 @@ def test_generate_diff(test_input1, test_input2, output, expected):
         result_data = file.read()
     test_path1 = get_path(test_input1)
     test_path2 = get_path(test_input2)
-    print(generate_diff(test_path1, test_path2, stylish))
-    assert result_data == generate_diff(test_path1, test_path2, stylish)
+    print(generate_diff(test_path1, test_path2, 'stylish'))
+    assert result_data == generate_diff(test_path1, test_path2, 'stylish')
 

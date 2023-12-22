@@ -2,6 +2,13 @@ from gendiff.formats.stylish import stylish
 from gendiff.parse_files import open_file
 
 
+FORMAT = {
+    'stylish': stylish,
+    # 'plain': plain,
+    # 'json': json
+}
+
+
 def generate_diff_list(dict_1: dict, dict_2: dict) -> list:
     result = []
     keys = dict_1.keys() | dict_2.keys()
@@ -41,6 +48,6 @@ def generate_diff_list(dict_1: dict, dict_2: dict) -> list:
     return result
 
 
-def generate_diff(first_file: str, second_file: str, output=stylish) -> str:
-    return output(generate_diff_list(open_file(first_file),
-                                     open_file(second_file)))
+def generate_diff(first_file: str, second_file: str, output='stylish') -> str:
+    return FORMAT[output](generate_diff_list(open_file(first_file),
+                                             open_file(second_file)))
