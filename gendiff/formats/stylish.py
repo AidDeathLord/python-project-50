@@ -33,10 +33,9 @@ def formatting_value(value, indent):
         return formatting_dict_value(value, indent + '  ')
     if isinstance(value, bool):
         return 'true' if value else 'false'
-    if value == '':
-        return ''
-    if not value:
+    if value is None:
         return 'null'
+
     return value
 
 
