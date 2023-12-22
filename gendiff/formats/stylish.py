@@ -1,4 +1,4 @@
-def stylish(diff_list: list, indent='') -> str:
+def build_stylish(diff_list: list, indent='') -> str:
     result = '{\n'
     for elem in diff_list:
         result = result + add_formatted_elem(elem, indent + '  ')
@@ -8,7 +8,7 @@ def stylish(diff_list: list, indent='') -> str:
 def add_formatted_elem(elem, indent):
     if elem['action'] == 'nested':
         return (f"{indent + '  '}{elem['key']}: "
-                f"{stylish(elem.get('value'), indent + '  ')}")
+                f"{build_stylish(elem.get('value'), indent + '  ')}")
     elif elem['action'] == 'changed':
         return (f"{indent}- {elem['key']}: "
                 f"{formatting_value(elem['old'], indent)}\n"
@@ -48,3 +48,7 @@ def formatting_dict_value(item, indent):
         else:
             result = result + f'{indent}    {keys}: {values}\n'
     return result + f'{indent}' + '}'
+
+
+def stylish(diff_list):
+    return build_stylish(diff_list).strip()
