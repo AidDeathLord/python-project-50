@@ -26,9 +26,11 @@ def formatting_value(value):
         return '[complex value]'
     if isinstance(value, bool):
         return 'true' if value else 'false'
+    if isinstance(value, str):
+        return f"'{value}'"
     if value is None:
         return 'null'
-    return f"'{value}'"
+    return value
 
 
 def plain(diff_list):
