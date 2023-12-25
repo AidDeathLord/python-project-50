@@ -11,12 +11,12 @@ def add_formatted_elem(elem, indent):
                 f"{build_stylish(elem.get('value'), indent + '  ')}")
     elif elem['action'] == 'changed':
         return (f"{indent}- {elem['key']}: "
-                f"{formatting_value(elem['old'], indent)}\n"
+                f"{format_value(elem['old'], indent)}\n"
                 f"{indent}+ {elem['key']}: "
-                f"{formatting_value(elem['new'], indent)}\n")
+                f"{format_value(elem['new'], indent)}\n")
     else:
         return (f"{indent}{formatting_action(elem['action'])}"
-                f"{elem['key']}: {formatting_value(elem['value'], indent)}\n")
+                f"{elem['key']}: {format_value(elem['value'], indent)}\n")
 
 
 def formatting_action(action: str) -> str:
@@ -28,7 +28,7 @@ def formatting_action(action: str) -> str:
         return '+ '
 
 
-def formatting_value(value, indent):
+def format_value(value, indent):
     if isinstance(value, dict):
         return formatting_dict_value(value, indent + '  ')
     if isinstance(value, bool):

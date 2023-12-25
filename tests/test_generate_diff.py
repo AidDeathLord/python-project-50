@@ -40,6 +40,12 @@ def get_path(file):
             'nested_file_2.yml',
             'plain',
             'correct_plain_result.txt'
+        ),
+        pytest.param(
+            'nested_file_1.yml',
+            'nested_file_2.yml',
+            'json',
+            'correct_json_result.txt'
         )
     ],
 )

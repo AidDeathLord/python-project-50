@@ -1,0 +1,116 @@
+[
+    {
+        "key": "common",
+        "action": "nested",
+        "value": [
+            {
+                "key": "follow",
+                "action": "added",
+                "value": false
+            },
+            {
+                "key": "setting1",
+                "action": "unchanged",
+                "value": "Value 1"
+            },
+            {
+                "key": "setting2",
+                "action": "deleted",
+                "value": 200
+            },
+            {
+                "key": "setting3",
+                "action": "changed",
+                "old": true,
+                "new": null
+            },
+            {
+                "key": "setting4",
+                "action": "added",
+                "value": "blah blah"
+            },
+            {
+                "key": "setting5",
+                "action": "added",
+                "value": {
+                    "key5": "value5"
+                }
+            },
+            {
+                "key": "setting6",
+                "action": "nested",
+                "value": [
+                    {
+                        "key": "doge",
+                        "action": "nested",
+                        "value": [
+                            {
+                                "key": "wow",
+                                "action": "changed",
+                                "old": "",
+                                "new": "so much"
+                            }
+                        ]
+                    },
+                    {
+                        "key": "key",
+                        "action": "unchanged",
+                        "value": "value"
+                    },
+                    {
+                        "key": "ops",
+                        "action": "added",
+                        "value": "vops"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "key": "group1",
+        "action": "nested",
+        "value": [
+            {
+                "key": "baz",
+                "action": "changed",
+                "old": "bas",
+                "new": "bars"
+            },
+            {
+                "key": "foo",
+                "action": "unchanged",
+                "value": "bar"
+            },
+            {
+                "key": "nest",
+                "action": "changed",
+                "old": {
+                    "key": "value"
+                },
+                "new": "str"
+            }
+        ]
+    },
+    {
+        "key": "group2",
+        "action": "deleted",
+        "value": {
+            "abc": 12345,
+            "deep": {
+                "id": 45
+            }
+        }
+    },
+    {
+        "key": "group3",
+        "action": "added",
+        "value": {
+            "deep": {
+                "id": {
+                    "number": 45
+                }
+            },
+            "fee": 100500
+        }
+    }
+]

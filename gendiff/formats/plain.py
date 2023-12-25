@@ -5,13 +5,13 @@ def build_plain(diff_list, path=''):
             result += build_plain(elem['value'], get_path(path, elem['key']))
         elif elem['action'] == 'added':
             result += (f"Property '{get_path(path, elem['key'])}' "
-                       f"was added with value: {formatting_value(elem['value'])}\n")
+                       f"was added with value: {format_value(elem['value'])}\n")
         elif elem['action'] == 'deleted':
             result += f"Property '{get_path(path, elem['key'])}' was removed\n"
         elif elem['action'] == 'changed':
             result += (f"Property '{get_path(path, elem['key'])}' "
-                       f"was updated. From {formatting_value(elem['old'])} "
-                       f"to {formatting_value(elem['new'])}\n")
+                       f"was updated. From {format_value(elem['old'])} "
+                       f"to {format_value(elem['new'])}\n")
     return result
 
 
@@ -21,7 +21,7 @@ def get_path(path, new_elem):
     return f'{new_elem}'
 
 
-def formatting_value(value):
+def format_value(value):
     if isinstance(value, dict):
         return '[complex value]'
     if isinstance(value, bool):

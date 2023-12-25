@@ -14,3 +14,6 @@ string format and json format.
 
 ### Comparison Nested Files (Stylish):
 [![asciicast](https://asciinema.org/a/tKPPjTAQnT8lih1cYkioFIs6x.svg)](https://asciinema.org/a/tKPPjTAQnT8lih1cYkioFIs6x)
+
+### Comparison Nested Files (Plain):
+[![asciicast](https://asciinema.org/a/MiMiNx2JXoCLpQ6KhgNgBMQgF.svg)](https://asciinema.org/a/MiMiNx2JXoCLpQ6KhgNgBMQgF)
