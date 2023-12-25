@@ -35,7 +35,6 @@ def formatting_value(value, indent):
         return 'true' if value else 'false'
     if value is None:
         return 'null'
-
     return value
 
 
