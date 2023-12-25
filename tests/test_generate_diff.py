@@ -1,5 +1,4 @@
 from gendiff import generate_diff
-from gendiff.formats.stylish import stylish
 import pytest
 import os
 
