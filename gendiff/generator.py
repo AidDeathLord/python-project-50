@@ -9,6 +9,9 @@ FORMAT = {
     'plain': plain,
     'json': json
 }
+ERRORS = {
+    'file_extension_error': 'ERROR!!!\nFile has the wrong extension!'
+}
 
 
 def generate_diff_list(dict_1: dict, dict_2: dict) -> list:
@@ -51,5 +54,16 @@ def generate_diff_list(dict_1: dict, dict_2: dict) -> list:
 
 
 def generate_diff(first_file: str, second_file: str, output='stylish') -> str:
-    return FORMAT[output](generate_diff_list(open_file(first_file),
-                                             open_file(second_file)))
+    dict_1 = open_file(first_file)
+    dict_2 = open_file(second_file)
+    check_result, error = check_for_errors(dict_1, dict_2)
+    if check_result:
+        return ERRORS[error]
+    return FORMAT[output](generate_diff_list(dict_1, dict_2))
+
+
+def check_for_errors(*args):
+    for elem in args:
+        if 'error' in elem.keys():
+            return True, elem.get('error')
+    return False, ''

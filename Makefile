@@ -11,7 +11,7 @@ package-reinstall:
 lint:
 	poetry run flake8 gendiff
 test:
-	poetry run pytest --cov-report term-missing --cov -vv
+	poetry run pytest
 selfcheck:
 	poetry check
 test-coverage:

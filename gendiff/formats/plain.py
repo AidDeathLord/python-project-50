@@ -1,17 +1,18 @@
 def build_plain(diff_list, path=''):
     result = ''
     for elem in diff_list:
-        if elem['action'] == 'nested':
-            result += build_plain(elem['value'], get_path(path, elem['key']))
-        elif elem['action'] == 'added':
-            result += (f"Property '{get_path(path, elem['key'])}' "
-                       f"was added with value: {format_value(elem['value'])}\n")
-        elif elem['action'] == 'deleted':
-            result += f"Property '{get_path(path, elem['key'])}' was removed\n"
-        elif elem['action'] == 'changed':
-            result += (f"Property '{get_path(path, elem['key'])}' "
-                       f"was updated. From {format_value(elem['old'])} "
-                       f"to {format_value(elem['new'])}\n")
+        match elem['action']:
+            case 'nested':
+                result += build_plain(elem['value'], get_path(path, elem['key']))
+            case 'added':
+                result += (f"Property '{get_path(path, elem['key'])}' "
+                           f"was added with value: {format_value(elem['value'])}\n")
+            case 'deleted':
+                result += f"Property '{get_path(path, elem['key'])}' was removed\n"
+            case 'changed':
+                result += (f"Property '{get_path(path, elem['key'])}' "
+                           f"was updated. From {format_value(elem['old'])} "
+                           f"to {format_value(elem['new'])}\n")
     return result
 
 
