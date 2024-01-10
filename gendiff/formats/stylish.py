@@ -6,9 +6,9 @@ MARKS = {
 }
 
 
-def get_indent(depth):
+def get_indent(depth: int) -> str:
     indent = (depth - 1) * INDENT_QUANT * ' '
-    return f'{indent}'
+    return str(indent)
 
 
 def build_stylish(diff_list: list, depth=0) -> str:
@@ -19,7 +19,7 @@ def build_stylish(diff_list: list, depth=0) -> str:
     return result + f'{get_indent(depth)}' + '}\n'
 
 
-def add_formatted_elem(elem, depth):
+def add_formatted_elem(elem: dict, depth: int) -> str:
     depth += 1
     match elem['action']:
         case 'nested':
