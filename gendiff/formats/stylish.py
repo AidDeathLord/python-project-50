@@ -1,68 +1,51 @@
 INDENT_QUANT = 4
-MARKS = {
-    'deleted': '-',
-    'added': '+',
-    'unchanged': ' '
-}
+REPLACER = ' '
 
 
-def get_indent(depth: int) -> str:
-    indent = (depth - 1) * INDENT_QUANT * ' '
-    return str(indent)
-
-
-def build_stylish(diff_list: list, depth=0) -> str:
+def build_stylish(diff_list: list, depth) -> str:
     result = '{\n'
     for elem in diff_list:
         result = result + add_formatted_elem(elem, depth)
-    depth += 1
-    return result + f'{get_indent(depth)}' + '}\n'
+    return result + f'{depth * REPLACER}' + '}\n'
 
 
 def add_formatted_elem(elem: dict, depth: int) -> str:
-    depth += 1
-    match elem['action']:
+    offset = depth + INDENT_QUANT
+    indent = (offset - 2) * REPLACER
+    key, value = elem.get('key'), elem.get('value')
+    action = elem['action']
+    match action:
         case 'nested':
-            return (f"{get_indent(depth)}  {MARKS['unchanged']} {elem['key']}: "
-                    f"{build_stylish(elem.get('value'), depth)}")
+            return f"{indent}  {key}: {build_stylish(value, offset)}"
         case 'changed':
-            return (f"{get_indent(depth)}  {MARKS['deleted']} {elem['key']}: "
-                    f"{format_value(elem['old'], depth)}\n"
-                    f"{get_indent(depth)}  {MARKS['added']} {elem['key']}: "
-                    f"{format_value(elem['new'], depth)}\n")
+            return (f"{indent}- {key}: {format_value(elem['old'], depth)}\n"
+                    f"{indent}+ {key}: {format_value(elem['new'], depth)}\n")
         case 'unchanged':
-            return (f"{get_indent(depth)}  {MARKS['unchanged']} "
-                    f"{elem['key']}: {format_value(elem['value'], depth)}\n")
+            return f"{indent}  {key}: {format_value(elem['value'], depth)}\n"
         case 'deleted':
-            return (f"{get_indent(depth)}  {MARKS['deleted']} "
-                    f"{elem['key']}: {format_value(elem['value'], depth)}\n")
+            return f"{indent}- {key}: {format_value(elem['value'], depth)}\n"
         case 'added':
-            return (f"{get_indent(depth)}  {MARKS['added']} "
-                    f"{elem['key']}: {format_value(elem['value'], depth)}\n")
+            return f"{indent}+ {key}: {format_value(elem['value'], depth)}\n"
 
 
-def format_value(value, depth):
-    if isinstance(value, dict):
-        return formatting_dict_value(value, depth)
-    if isinstance(value, bool):
-        return 'true' if value else 'false'
-    if value is None:
+def format_value(elem, depth):
+    if isinstance(elem, dict):
+        indent = (depth + INDENT_QUANT * 2) * REPLACER
+        result = '{\n'
+        for key, value in elem.items():
+            if isinstance(value, dict):
+                result += (f'{indent}{key}: '
+                           f'{format_value(value, depth + INDENT_QUANT)}\n')
+            else:
+                result += f'{indent}{key}: {value}\n'
+
+        return result + f'{(depth + INDENT_QUANT) * REPLACER}' + '}'
+    if isinstance(elem, bool):
+        return 'true' if elem else 'false'
+    if elem is None:
         return 'null'
-    return value
-
-
-def formatting_dict_value(item, depth):
-    depth += 1
-    result = '{\n'
-    for keys, values in item.items():
-        if isinstance(values, dict):
-            result += (f"{get_indent(depth)}  {MARKS['unchanged']} {keys}: "
-                       f"{formatting_dict_value(values, depth)}\n")
-        else:
-            result = result + (f"{get_indent(depth)}  {MARKS['unchanged']} "
-                               f"{keys}: {values}\n")
-    return result + f'{get_indent(depth)}' + '}'
+    return elem
 
 
 def stylish(diff_list):
-    return build_stylish(diff_list).strip()
+    return build_stylish(diff_list, 0).strip()
