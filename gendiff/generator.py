@@ -15,6 +15,7 @@ ERRORS = {
 
 
 def generate_diff_list(dict_1: dict, dict_2: dict) -> list:
+    """compare two dictionaries and return a list of changes"""
     result = []
     keys = dict_1.keys() | dict_2.keys()
     for key in sorted(keys):
@@ -54,6 +55,8 @@ def generate_diff_list(dict_1: dict, dict_2: dict) -> list:
 
 
 def generate_diff(first_file: str, second_file: str, output='stylish') -> str:
+    """generates a list of differences
+       and outputs them in the selected format"""
     dict_1 = open_file(first_file)
     dict_2 = open_file(second_file)
     check_result, error = check_for_errors(dict_1, dict_2)
@@ -62,7 +65,7 @@ def generate_diff(first_file: str, second_file: str, output='stylish') -> str:
     return FORMAT[output](generate_diff_list(dict_1, dict_2))
 
 
-def check_for_errors(*args):
+def check_for_errors(*args: dict) -> (bool, str):
     for elem in args:
         if 'error' in elem.keys():
             return True, elem.get('error')

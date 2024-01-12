@@ -1,4 +1,8 @@
+from typing import Union
+
+
 def build_plain(diff_list, path=''):
+    """convert the list of differences into a string with a correct output"""
     result = ''
     for elem in diff_list:
         match elem['action']:
@@ -19,13 +23,15 @@ def build_plain(diff_list, path=''):
     return result
 
 
-def get_path(path, new_elem):
+def get_path(path: str, new_elem: str) -> str:
+    """creating the correct output of the element"""
     if path:
         return f'{path}.{new_elem}'
     return f'{new_elem}'
 
 
-def format_value(value):
+def format_value(value: Union[str, int, bool, dict]) -> str:
+    """depending on the type, format the value to string"""
     if isinstance(value, dict):
         return '[complex value]'
     if isinstance(value, bool):
@@ -34,7 +40,7 @@ def format_value(value):
         return f"'{value}'"
     if value is None:
         return 'null'
-    return value
+    return str(value)
 
 
 def plain(diff_list):

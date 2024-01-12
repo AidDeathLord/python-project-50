@@ -5,6 +5,9 @@ from pathlib import Path
 
 # Open file and return dict
 def open_file(file_path):
+    """open the file in the appropriate way,
+       depending on the resolution,
+       or return error"""
     with open(file_path) as f:
         data = f.read()
     match Path(file_path).suffix:
